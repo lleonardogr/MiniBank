@@ -13,6 +13,8 @@ public abstract class ContaBase : IConta
     {
         Numero = numero;
         Titular = titular;
+        if(saldoInicial < 0) 
+            throw new ArgumentException("Saldo inicial não pode ser negativo");
         Saldo = saldoInicial;
     }
 
