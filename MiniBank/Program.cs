@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using MiniBank;
 
-var ana = new Cliente("Ana Silva", "123.456.789-00", "ana@email.com");
+var ana = new Cliente("Ana Silva", "123.456.789-00", "ana@mail.com",TipoCliente.PessoaFisica);
 
 var contaCorrente = new ContaCorrente("CC-001", ana, 1000m, limite: 500m);
 var contaPoupanca = new ContaPoupanca("CP-001", ana, 2000m);

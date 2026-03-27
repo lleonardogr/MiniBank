@@ -7,6 +7,7 @@ public abstract class ContaBase : IConta
     public string Numero { get; }
     public decimal Saldo { get; protected set; }
     public Cliente Titular { get; }
+    public DateTime DataAbertura{ get; init;} = DateTime.UtcNow;
 
     protected ContaBase(string numero, Cliente titular, decimal saldoInicial = 0)
     {

@@ -2,7 +2,7 @@ using System;
 
 namespace MiniBank;
 
-public class ContaPoupanca : ContaBase
+public sealed class ContaPoupanca : ContaBase
 {
     public decimal TaxaRendimento { get; }
 

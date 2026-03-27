@@ -2,7 +2,7 @@ using System;
 
 namespace MiniBank;
 
-public class ContaCorrente : ContaBase
+public sealed class ContaCorrente : ContaBase
 {
     public decimal LimiteChequeEspecial { get; }
 
