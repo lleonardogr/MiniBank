@@ -8,6 +8,9 @@ var contaPoupanca = new ContaPoupanca("CP-001", ana, 2000m);
 
 var contas = new List<IConta> { contaCorrente, contaPoupanca };
 
+contaCorrente.Depositar(500m);
+contaCorrente.Depositar(200m);
+
 foreach (var conta in contas)
 {
     Console.WriteLine(conta.ExibirExtrato());

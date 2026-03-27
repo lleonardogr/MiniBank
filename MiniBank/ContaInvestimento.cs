@@ -15,6 +15,7 @@ public sealed class ContaInvestimento : ContaBase
         decimal valorComTaxa = valor * (1+TaxaDeSaque);
         if(valorComTaxa > Saldo) return false;
         Saldo -= valorComTaxa;
+        Extrato.Registrar(new Transacao(valor, TipoTransacao.Saque, "Saque"));
         return true; 
     }
 }

@@ -16,6 +16,7 @@ public sealed class ContaPoupanca : ContaBase
     {
         if (valor <= 0 || valor > Saldo) return false;
         Saldo -= valor;
+        Extrato.Registrar(new Transacao(valor, TipoTransacao.Saque, "Saque"));
         return true;
     }
 

@@ -17,6 +17,7 @@ public sealed class ContaCorrente : ContaBase
         if (valor <= 0) return false;
         if (valor > Saldo + LimiteChequeEspecial) return false;
         Saldo -= valor;
+        Extrato.Registrar(new Transacao(valor, TipoTransacao.Saque, "Saque"));
         return true;
     }
 

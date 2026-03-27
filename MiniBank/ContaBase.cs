@@ -8,6 +8,7 @@ public abstract class ContaBase : IConta
     public decimal Saldo { get; protected set; }
     public Cliente Titular { get; }
     public DateTime DataAbertura{ get; init;} = DateTime.UtcNow;
+    public Extrato Extrato {get;} = new Extrato();
 
     protected ContaBase(string numero, Cliente titular, decimal saldoInicial = 0)
     {
@@ -16,6 +17,8 @@ public abstract class ContaBase : IConta
         if(saldoInicial < 0) 
             throw new ArgumentException("Saldo inicial não pode ser negativo");
         Saldo = saldoInicial;
+        Extrato.Registrar(new Transacao(saldoInicial, 
+            TipoTransacao.Deposito, "Abertura de conta"));
     }
 
     // Encapsulamento: deposito valida valor
@@ -23,11 +26,16 @@ public abstract class ContaBase : IConta
     {
         if (valor <= 0) return;
         Saldo += valor;
+        Extrato.Registrar(new Transacao(valor, 
+            TipoTransacao.Deposito, "Depósito"));
     }
 
     // Polimorfismo: cada tipo de conta define sua regra de saque
     public abstract bool Sacar(decimal valor);
 
     public virtual string ExibirExtrato()
-        => $"[{GetType().Name}] Conta {Numero} | {Titular.Nome} | Saldo: {Saldo:C}";
+    {
+        Extrato.Imprimir();
+        return $"Saldo atual: {Saldo:C}";
+    }
 }
