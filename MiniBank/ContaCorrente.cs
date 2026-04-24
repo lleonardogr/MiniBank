@@ -14,8 +14,8 @@ public sealed class ContaCorrente : ContaBase
 
     public override bool Sacar(decimal valor)
     {
-        if (valor <= 0) return false;
-        if (valor > Saldo + LimiteChequeEspecial) return false;
+        if (valor <= 0) throw new ArgumentException("Valor de saque deve ser positivo.");
+        if (valor > Saldo + LimiteChequeEspecial) throw new SaldoInsuficienteException(Saldo + LimiteChequeEspecial, valor);
         Saldo -= valor;
         Extrato.Registrar(new Transacao(valor, TipoTransacao.Saque, "Saque"));
         return true;

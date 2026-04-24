@@ -10,6 +10,15 @@ public abstract class ContaBase : IConta
     public DateTime DataAbertura{ get; init;} = DateTime.UtcNow;
     public Extrato Extrato {get;} = new Extrato();
 
+    public event EventHandler<TransacaoEventArgs>? TransacaoRealizada;
+
+    protected void OnTransacaoRealizada(Transacao transacao)
+    {
+        Extrato.Registrar(transacao);
+        TransacaoRealizada?.Invoke(this, 
+            new TransacaoEventArgs(transacao, this));
+    }
+
     protected ContaBase(string numero, Cliente titular, decimal saldoInicial = 0)
     {
         Numero = numero;
@@ -26,7 +35,7 @@ public abstract class ContaBase : IConta
     {
         if (valor <= 0) return;
         Saldo += valor;
-        Extrato.Registrar(new Transacao(valor, 
+        OnTransacaoRealizada(new Transacao(valor, 
             TipoTransacao.Deposito, "Depósito"));
     }
 
