@@ -1,20 +1,15 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using MiniBank;
 
+
+var banco = new Banco("MiniBank");
+
 var ana = new Cliente("Ana Silva", "123.456.789-00", "ana@mail.com",TipoCliente.PessoaFisica);
 
-var contaCorrente = new ContaCorrente("CC-001", ana, 1000m, limite: 500m);
-var contaPoupanca = new ContaPoupanca("CP-001", ana, 2000m);
+banco.AdicionarCliente(ana);
 
-var contas = new List<IConta> { contaCorrente, contaPoupanca };
+var ccAna = banco.AbrirContaCorrente(ana, 5000m);
+var cpAna = banco.AbrirContaPoupanca(ana, 2000m);
 
-contaCorrente.Depositar(500m);
-contaCorrente.Depositar(200m);
-
-foreach (var conta in contas)
-{
-    Console.WriteLine(conta.ExibirExtrato());
-}
-
-contaCorrente.Sacar(1200m); // usa cheque especial
-bool ok = contaPoupanca.Sacar(9999m); // false — sem cheque especial
+ccAna.Depositar(500m);
+ccAna.Sacar(200m);

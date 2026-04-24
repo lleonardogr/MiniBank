@@ -23,4 +23,12 @@ public sealed class ContaCorrente : ContaBase
 
     public override string ExibirExtrato()
         => base.ExibirExtrato() + $" | Limite: {LimiteChequeEspecial:C}";
+    
+    public bool Transferir(IConta destino, decimal valor)
+    {
+        if (!Sacar(valor)) return false;
+        destino.Depositar(valor);
+        Extrato.Registrar(new Transacao(valor, TipoTransacao.Transferencia, $"Transferencia para {destino.Numero}"));
+        return true;
+    }
 }
